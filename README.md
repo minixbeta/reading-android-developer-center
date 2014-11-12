@@ -6,7 +6,7 @@ Android 开发者中心阅读计划
 
 ## 目标
 
-第一个目标是仔细阅读 [Android 开发者中心](http://developer.android.com/) 中的所有内容。
+第一个目标是**仔细**阅读 [Android 开发者中心](http://developer.android.com/) 中的**所有**内容。
 第二个目标暂时不说，等达到第一个目标再继续
 
 ## 完成 
