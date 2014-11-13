@@ -18,3 +18,15 @@ Android 为 Material Design 提供了：
 ## View Shadows
 
 现在不仅有 X, Y 轴了，还有了 Z 轴，Z 轴数值大的，会有更多阴影，并且处于其它控件之上。
+
+## Animations
+
+可以自己定义点击控件时的动画效果，视图的隐藏显示切换的动画
+
+## Drawable
+
+Drawable 的新特性可以帮助我们设计出符合 Material Design 的应用：
+
+* Vector drawables: 向量形式的控件，不会随着放大失真
+* Drawable tinting：定义图片的 alpha mask，使用 tint 属性调整色调
+* Color extraction：从控件中提取颜色
