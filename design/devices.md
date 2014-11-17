@@ -44,3 +44,12 @@ Suggest 是Android Wear推给用户的信息，可以竖着滑动，查看不同
 Android Wear 设备会在正确的时间提供正确的信息。它会根据环境的变化自动启动应用；它会像传统手表那样，你使用的时候看一眼就好，你
 使用软件的时间越少，专注于眼前事务的时间就越长；它像个人助理，知道你的喜好，只在必要的时候打断你；它专注于简单的交互，只在必要
 的时候才需要你输入信息，并且大部分信息都是通过滑动或者声音来输入的。
+
+### Design Principles
+
+* Focues on not stopping the user and all ese will follow: 手表比较适用于这种场景：用户在做事情的时候偶尔看一下，例如做饭，吃东西，跑步等等
+* Design for big gestures: 用户会在各种场景下使用手表应用，不要让用户因为使用你的应用而影响他们正在做的事
+* Think about stream cards first: 最佳的体验是当用户正好需要的时候，你的应用恰好出现在那里。如果你实在不知道用户什么时候需要，可以通过声音或者触摸来实现
+* Do one thing, really fast: 如果用户一次使用你的应用时间只有几秒，那么他们在一天之中就可能更多地使用你的应用
+* Design for the corner of the eye: 用户盯着你的应用的时间越长，他们就离现实世界越远
+* Don't be a constant shoulder tapper: 手表是用户的贴身物品，可别让你的应用像在手机上那样不断发出振动
