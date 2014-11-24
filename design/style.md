@@ -112,4 +112,4 @@ Android 设计语言依赖于传统的排版工具，例如 scale, space, rhythm
 
 预定义的 glyphs 应该被用于一些通用的动作，例如，刷新，分享。下面的链接提供了适用于不同 屏幕密度的图标包。
 
-[Download the Action Bar Icon Pack]()
+[Download the Action Bar Icon Pack](http://developer.android.com/downloads/design/Android_Design_Icons_20131106.zip)
