@@ -103,7 +103,7 @@ Android 设计语言依赖于传统的排版工具，例如 scale, space, rhythm
 启动图标在主屏幕上代表你的启用，因为用户可能会改变背景，所以你需要保证在任何背景下，你的启动图标都可以正常显示。
 
 * Sizes & scale: 启动图标必须是 `48*48` dp, 在 Google Play 上显示的启动图标必须是 `515*512` pxiels
-* Proportioins: Full asset, 48*48 dp
+* Proportioins: 整个图标 48*48 dp
 * Style: 使用不同的轮廓
 
 ### Action Bar
@@ -113,3 +113,30 @@ Android 设计语言依赖于传统的排版工具，例如 scale, space, rhythm
 预定义的 glyphs 应该被用于一些通用的动作，例如，刷新，分享。下面的链接提供了适用于不同 屏幕密度的图标包。
 
 [Download the Action Bar Icon Pack](http://developer.android.com/downloads/design/Android_Design_Icons_20131106.zip)
+
+* Sizes & scale: 手机的动作栏上的图标应该是 `32*32` dp
+* Focal area & proportions: 整个图标 `32*32` dp, 图标的内容区 `24*24` dp
+* Style: 扁平，没有过多细节，有平滑的边缘或者尖锐的形状。如果图片太细了，可以向左或者向右旋转 45 度。笔画细的地方最小是 2dp
+* Colors: 颜色有两种 
+    - Colors:#333333, Enabled: 60% opacity, Disabled: 30% opacity
+    - Colors:#FFFFFF, Enabled: 60% opacity, Disabled: 30% opacity
+
+### 小图标/场景相关图标
+
+在应用内，可以把小图标放在动作上，或者表示指定项目的状态，例如， Gmail 使用小星星图标表示邮件是重要的。
+
+* Sizes & scale: 小图标应该是 `16*16` dp
+* Focal  proportions: 整个图标 `16*16` dp, 图标的内容区 `12*12` dp
+* Style: 浅色，扁平，简单。填充的形状比细笔画更容易识别。使用简单的视觉隐喻，让用户一看到就明白这代表什么。
+* Color: 少用非浅色系，如果用的话，要有特别的目的。例如 Gmail 使用黄色代表收藏消息。如果一个图标有动作，需要选择对比强烈的颜色作为背景。
+
+### 通知栏图标
+
+如果你的应用会产生通知，需要提供一个系统可以显示的图标，当有新消息时，在状态栏显示。
+
+* Sizes & scale: 通知图标必须是 `24*24` dp
+* Focal area & proportions: 整个图标 `24*24` dp, 内容区 `22*22` dp
+* Style: 保持扁平，简单
+* Colors: 通知图标必须全是白色的，系统可能会缩小或者使通知图标变暗
+
+### Design Tips
