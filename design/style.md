@@ -201,4 +201,4 @@ art/...
 例外：如果你已有的图标符号和 Android 平台的不一样，那么，使用 Android 平台上的样子，并加上你的风格。这样，用户根据他们在其它
 Android 应用中学到的经验，很容易明白这些符号的含义。
 
-如果你没有自己的图标集，在 Android 平台上开发的是新应用，那么，使用 Android 的标准图标，使用颜色和Logo作为品牌标识。动作栏图标集可以在这里免费[下载]()
+如果你没有自己的图标集，在 Android 平台上开发的是新应用，那么，使用 Android 的标准图标，使用颜色和Logo作为品牌标识。动作栏图标集可以在这里免费[下载](http://developer.android.com/design/downloads/index.html)
