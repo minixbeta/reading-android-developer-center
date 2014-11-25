@@ -140,3 +140,39 @@ Android 设计语言依赖于传统的排版工具，例如 scale, space, rhythm
 * Colors: 通知图标必须全是白色的，系统可能会缩小或者使通知图标变暗
 
 ### Design Tips
+
+这里有一些提示，如果你要创建自己的图标或者其它资源，他们可能会对你有帮助。这些提示假设你使用的是 Photoshop 或者其它类似的
+基于向量的图片编辑器。
+
+* User vector sapes where possible: 只要可能，就使用矢量图，在放大时他们不会丢失细节
+* Start with large artboards: 一开始的时候尽量创建大图，这样你可以方便地把他们变成小图，从而适配各种不同的屏幕
+* When scaling, redraw bitmap layers as needed: 如果你要放大一个 bitmap 图，而不是矢量图，那么你可能需要重新绘制这个图
+* Use common nameing conventions for icon assets: 命名图片时，同组资源加上相同前缀，这样按字母排序时他们就会在一起
+
+| Asset Type | Prefix | Example |
+| :----------|:-------| :-----|
+| Icons | ic_ | ic_star.png |
+| Launcher icons | ic_launcher | ic_launcher_calendar.png |
+| Menu icons and Action Bar icons | ic_menu | ic_menu_archive.png | 
+| Status bar icons | ic_stat_notify | ic_stat_notify_msg.png | 
+| Tab icons | ic_tab | ic_tab_recent.png |
+| Dialog icons | ic_dialog | ic_dialog_info.png |
+
+* Set up a working space that organizes files by density: 根据屏幕密度不同，组织资源目录
+
+```
+art/...
+  mdpi/...
+    _pre_production/...
+      working_file.psd
+    finished_asset.png
+  hdpi/...
+    ...
+  xhdpi/...
+    ...
+  xxhdpi/...
+  ...
+```
+
+* Provide an xxx-high-density lancher icon: 有些设备会把启动图标放大 25%，所以你需要在 drawable-xxxhdpi 目录下创建一个高密度的图标
+* Remove unnecessary metadata from final assets: 虽然 Android SDK 会在打包时自动压缩应用程序资源，但是一个最佳实践是删除PNG资源不必要的头文件和元数据文件。 OptiPNG 或者 Pngcrush 可以保证元数据文件被清除了，并且文件大小得到优化。
