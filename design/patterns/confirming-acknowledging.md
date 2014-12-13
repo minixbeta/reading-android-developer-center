@@ -27,3 +27,32 @@
 4. 完成这个动作是否会带来显式的反馈
 * Yes: 不使用确认和肯定。这个动作并不会带来问题，用户也知道什么情况下表明动作完成。
 * No: 给出肯定，但是不用使用撤销。用户需要可见的反馈，但是撤消没有什么用。
+
+## Confirming
+
+### Example: Google Play Books
+在这个例子中，用户需要从他们的 Google Play library 中删除图书。此时会显示一个警告，因为用户需要明白删除后在任何设备中这本书都
+是不可用的了。
+
+创建确认对话框时，标题要有意义，显示用户请求执行的动作
+
+### Example: Android Beam
+
+确认对话框不一定非要显示一个警告，两个按钮。Android Beam 初始化后，用户会被提示，触摸要被分享的内容。如果他们不想继续，可以直接把手机移走。
+
+## Acknowledging
+### Example: Abandoned Gmail draft saved
+在这个例子中，如果用户从 Gmail 编辑界面 中向上，或者返回，那么一些用户没有预料到的行为就可能发生 ：当然草稿被自动保存。可以使用一个 toast 来向用户发出这种肯定，几秒后消失。撤消在这里是不合适的，因为保存是由应用发起的，而
+不是用户。并且很容易恢复编辑的消息。
+### Example: Gmail conversation deleted
+在用户从 Gmail 列表中删除会话时，一个肯定消息会出现，还有一个撤消选项。肯定消息会保持到用户执行一个无关的动作，例如滑动列表。
+
+
+## No Confirmation or Acknowledgement
+### Example:+1'ing
+* Confirmation is unnecessary: 如果用户不小心点了个赞，并不是什么大事，他们可以再点一下来取消这个动作。
+* Acknowledgement is unneccessary: 用户会看到 +1 按钮变色，这是个明显的信号。
+
+### Example: Removing an app from the Home Screen
+* Confirmation is unnecessay: 这是个有意的行为：用户必须拖动一个项目到一个相对大的目标内。因此，基本上不可能是误操作。但是一旦用户后悔这个决定，只需要几秒钟就可以恢复。
+* Acknowledgment is unneccessary: 如果知道应用从屏幕上消失是他们通过拖动让它消失的。
