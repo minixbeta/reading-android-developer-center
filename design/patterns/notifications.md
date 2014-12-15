@@ -95,3 +95,24 @@ DEFAULT, HIGH 和 MAX 是打断式的优先级，有在主活动中打断用户�
 * 不是时间敏感的
 * 包含用户感兴趣的信息，但是可以在闲暇时处理
 
+### Set a notification category
+如果你的通知属于下面的某一类，那么赋予它此类型。系统 UI，例如通知中心可能使用这一信息进行排序或者过滤。
+
+| 类型 | 解释 |
+|:---: | :---:|
+| CATEGORY_CALL | 来电（视频或者声音），或者相似的同步通讯请求 |
+| CATEGORY_MESSAGE | 发来的消息(短信，即时通讯) |
+| CATEGORY_EMAIL | 异步消息（邮件) |
+| CATEGORY_EVENT | 日历事件 |
+| CATEGORY_PROMO | 推广或者广告 |
+| CATEGORY_ALARM | 提醒或者计时器 |
+| CATEGORY_PROGRESS | 长时间运行的后台操作的进度 |
+| CATEGORY_SOCIAL | 社会化网络或者分享更新 |
+| CATEGORY_ERROR | 后台操作或者认证状态错误 |
+| CATEGORY_TRANSPORT | 对播放的媒体传输控制 |
+| CATEGORY_SYSTEM | 系统或者设备状态更新，保留给系统使用 |
+| CATEGORY_SERVICE | 运行后台服务的标志 |
+| CATEGORY_RECOMMENDATION | 对一个特定事情的特别的，及时的推荐。例如，新应用可能会推荐一个用户下一步想要阅读的新故事 |
+| CATEGORY_STATUS | 设备或者环境状态的即时信息 |
+
+### Summarize your notifications
