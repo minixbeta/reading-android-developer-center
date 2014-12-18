@@ -106,3 +106,33 @@
 * 如果你一定要使用人称，使用“你”，而不是“我”。Android 在对用户讲话，而不是代表用户。
 
 ### Writing examples
+下面的例子是我们在 Ice Cream Sandwich 中对系统设置应用的名字和二级文本作出的改变。
+
+* Before: Use tactile feedback
+* After: Vibrate on touch
+
+在 checkbox 设置中，我们避免使用了 Use，而让名字变得更直接，易懂。
+
+* Before: Screen timeout(Adjust the delay before the screen automatically turns off)
+* After: Sleep(After 10 minutes of inactivity)
+
+在这个多选择设置中，我们把设置名改的更友好，还把二级文本改成了状态描述 。我们把描述词语围绕着选择的值,"10分钟”，因为如果只有“10分钟”，那么用户可能误解为“睡眠十分钟”
+
+* Before: Change screen lock(Change or disable pattern, PIN, or password security)
+* After: Screen lock(Pattern)
+
+这一设置导向子界面序列，允许用户在多个锁屏选项中选择一个并进行设置。我们避免使用“改变”作为设置名的开始，而是直接描述锁屏的类型。如果用户没有设置锁屏，二级文本可以设置为“无”
+
+* Before: NFC(Use Near Field Communication to read and exchange tags)
+* After: NFC(Allow data exchange when the phone touches another device)
+
+在这个 checkbox 设置中，虽然使用技术术语，但是我们仍然使用 “NFC”，因为：（1）我们无法找到一个更清楚，简洁的替代品，（2）使用熟悉的缩写，在接下来的几年中会急速增加
+
+我们重写了描述信息。它没有之前的描述技术性强，描述了如何以及为什么使用 NFC。我们没有将什么是 NFC 写在描述里，因为对多数用户来说这没有意义还占地方。
+
+## Checklist
+* 保证设置里的第一项都符合这里的标准
+* 如果你有多于7项设置，寻找分组方式
+* 使用合适的设计模式，这样会降低用户的学习成本
+* 选择安全，自然，对多数用户合适的选项作为默认值
+* 给每个设置一个清楚，简洁的名字，使用合适的二级文本
