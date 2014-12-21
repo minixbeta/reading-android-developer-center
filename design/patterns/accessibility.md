@@ -29,6 +29,9 @@ Android 设计准则中的“我总是需要知道我在哪里”是可用性问
 
 ### Label visual UI elements meaningfully
 在你的线框中，对没有可见文本的功能性 UI 组件[标上标签]() 。这些组件可能是按钮，图标，有图标的标签，有状态的图标（例如星）。开发者可以使用 [contentDesription]() 属性来设计标签。
+
+例子
+
 1. group(组)
 2. all contacts(所有联系人)
 3. favorites（最喜欢的)
@@ -38,3 +41,27 @@ Android 设计准则中的“我总是需要知道我在哪里”是可用性问
 7. action overflow button
 8. text message
 
+### Provide alternatives to affordances that time out
+你的应用可能会在一段时间后让图标或者控件消失。例如，启动视频五秒后，播放控制按钮会从屏幕淡出。
+
+由于TalkBack 的工作方式，这些控件可能不会被大声读出，除非他们获得了焦点。如果他们从屏幕上过快淡出，用户可能没有意识到他们的存在。因此，对高优先级的工作流，不要依赖于超时的控件。（这同时也是个通用的设计准则）。如果这类控件会启动一个重要功能，要保证用户可以再次打开这个控件，或者这个功能在其它地方有重复。你也可以在可用性服务打开时改变应用的行为。你的开发者可以保证超时后控件不会消失。
+
+### Use standard framework controls or enable TalkBack for custom controls
+标准的 Android 框架控件可以自动和可用性服务一起工作，并且默认就有**内容描述(ContentDescriptions)**。
+
+经常被忽视的系统控件是字体大小。用户可以在设置中打开系统范围内的大字体；在应用内使用系统的默认字体会同时在你的应用内启用用户偏好。为了在你的应用内启动系统字体，让文本以及相关容器使用 [scale pixels]().
+
+还有，要记得当用户启用大字体时，或者所说的语言和你的不同时，它们的空间可能比你留出的要大。阅读 [Devices and Displays]() 以及 [Suppoting Multiple Screens]() 中的设计策略。
+
+如果你使用定制控件，Android 提供了开发者工具，让你可以使用上面的准则，并对 UI 提供了有意义的描述。对你的线框提供合适的概念，引导开发者阅读 [Custom Views]() 文档。
+
+### Try it out yourself
+打开 设置->可用性 中的 TalkBack 服务，使用直接控制或者不用眼睛的方式对你的应用进行导航。
+
+## Checklist
+* 让导航符合直觉
+* 使用推荐的触摸目标大小 
+* 给可见的 UI 元素提供有意义的标签名
+* 给超时的组件提供另一种访问方式
+* 使用标准的框架控件或者对定制控件启用 TalkBack
+* 自己试试
