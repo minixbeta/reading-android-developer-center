@@ -7,3 +7,34 @@ Android 的任务之一是如何组织世界上的信息，并且让他们使用
 
 对可用性的稳健支持可以增加你应用的用户基数。它可能被某些组织所采用。
 
+[更多关于 Google 和 可用性的内容]()
+
+## Android's Accessibility Tools
+Android 包含了一些特性，用于支持视觉不便的用户；他们并不需要你的应用提供强烈的视觉变化。
+
+* [TalkBack]() 是 Google 提供的预装屏幕阅读服务。它使用朗读反馈来描述动作的执行结果，例如启动应用，以及事件的发生，例如通知到达。
+* Explore by Touch 是与 TalkBack 一起工作的系统特性，让你可以点击设备屏幕，通过阅读反馈听到手指点击的内容。这一特性对有高度视觉障碍的人是有帮助的。
+* Accessibility settings 可以让你调整设备的显示和声音选项，例如增加文本大小，改变文本朗读的语速，等等。
+
+一些用户使用硬件或者软件的方向控制器（例如 D-pad, trackball, 键盘）在屏幕的选项之间跳转。它们以线性方式与应用的结构进行交互，类似于电视遥控器上的4个方向的远程控制导航。
+
+## Guidelines
+Android 设计准则中的“我总是需要知道我在哪里”是可用性问题的关键。当用户在应用内导航时，他们需要得到反馈以及一种心智模式，以便知道自己在哪里。当通过触摸浏览时，用户启用了一种看不见但是可以听见的应用内的层级结构。像应用设计的其它方面一样，这一结构可以是简单，优雅，而又强大的。下面是 Android 推荐的设计准则，用于为所有用户启动有效的导航。
+
+### Make navigation intuitive
+设计上需要定义良好，有清晰的工作流，同时导航步骤最少，特别是用户经常使用的任务。保证这些任务通过焦点控制就能导航。
+
+### use recommended touch target sizes
+48 dp 是对屏幕上的元素推荐的点击目标大小 。阅读 [Android Metrics and Grids]()，学习更多的实现策略来帮助你的多数用户。对一些特别的用户而言，可能需要更大的点击目标。一个例子是教学用的应用，按钮设计成比推荐的更大对那些正在培养移动能力的儿童以及手工操作需要改变的人而言是比较合适的。
+
+### Label visual UI elements meaningfully
+在你的线框中，对没有可见文本的功能性 UI 组件[标上标签]() 。这些组件可能是按钮，图标，有图标的标签，有状态的图标（例如星）。开发者可以使用 [contentDesription]() 属性来设计标签。
+1. group(组)
+2. all contacts(所有联系人)
+3. favorites（最喜欢的)
+4. search（搜索）
+5. action overflow button（动作栏扩展按钮）
+6. when stared:remove from favourites. when not stared:add to favorties
+7. action overflow button
+8. text message
+
