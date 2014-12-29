@@ -103,3 +103,20 @@ Manifest 文件的主要任务就是通知系统应用包含的组件。例如�
   <application>
 </manifest>
 ```
+
+在 <application> 元素中，android:icon 属性指向代表应用的图标资源。
+在 <activity> 元素中，android:name 属性指定了一个 Activity 子类的全名，android:label 属性指定了用户可见的活动名称。
+
+你必须以下面的方式声明所有应用的组件:
+
+* <activity> 元素代表活动
+* <service> 元素代表服用
+* <receiver> 元素代表广播接收器
+* <proivder> 元素代表内容提供器
+
+活动，服务及内容提供器如果没有在 Manifest 文件中声明 ，系统是看不到他们的，因此是不能运行的。然而，广播接收器可以在 Manifest 文件中声明，也可以使用代码动态生成，通过 registerReceiver 调用。
+
+更多关于如何结构化应用 Manifest 文件的信息，可以参见 [The AndroidManifest.xml]() 文档。
+
+### Declaring component capabilities
+我们在之前提到，你可以使用意图来启动活动，服务以及广播接收器。你可以在意图中使用组件的名字显示地指定要启动的组件。但是意图的真正力量在于隐式意图。你只需要指定一个要执行的动作，由系统去搜索设备上哪个应用的组件可以响应这个动作，如果有多个组件可以响应，则可以让用户从中选择一个。
