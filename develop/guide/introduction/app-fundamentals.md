@@ -78,3 +78,28 @@ Android 系统设计的一个独特之处在于任何应用都可以启动其它
 * 你可以在 [ContentResolver]() 上调用 [query()]() 来向内容提供器执行一个请求。
 
 更多关于使用意图的信息，可以参见 [Intents and Intents Filters]() 文档。更多关于激活特定组件的信息，也可以参考 [Activities](), [Services](), [BroadcastReceiver](), 以及 [Content Providers]().
+
+## The Manifest File
+在 Android 系统启动你的应用中的组件之前，它需要通过 AndroidManifest.xml 文件知道你的应用中都有哪些组件。你需要在这个文件中声明所有组件，并且把这个文件放到应用目录的顶层。
+
+除了声明组件外，Manifest 文件还可以：
+* 识别应用需要的用户权限，例如网络访问或者读取用户联系人。
+* 基于应用使用的 API, 声明应用需要的最小 API 等级。
+* 声明应用需要的软硬件特性，例如照相机，蓝牙服务或者多点触控屏幕。
+* 应用需要链接到的 API 库，除了Android 框架的 API 外，例如 [Goolge Mpas library]().
+
+### Declaring components
+Manifest 文件的主要任务就是通知系统应用包含的组件。例如，一个 manifest 文件示例：
+
+```
+<?xml version="1.0" encoding="utf-8"?>
+<manifest ...>
+  <application android:icon="drawable/app_icon.png" ...>
+    <activity android:name="com.example.project.ExampleActivity"
+              android:label="@string/example_label" ...>
+    </activity>
+    
+    ...
+  <application>
+</manifest>
+```
