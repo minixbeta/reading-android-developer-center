@@ -120,3 +120,46 @@ Manifest 文件的主要任务就是通知系统应用包含的组件。例如�
 
 ### Declaring component capabilities
 我们在之前提到，你可以使用意图来启动活动，服务以及广播接收器。你可以在意图中使用组件的名字显示地指定要启动的组件。但是意图的真正力量在于隐式意图。你只需要指定一个要执行的动作，由系统去搜索设备上哪个应用的组件可以响应这个动作，如果有多个组件可以响应，则可以让用户从中选择一个。
+
+系统去识别哪些组件可以响应意图的方式是，将收到的意图与 Manifest 文件中的 **意图过滤器** 进行比较。在 Manifest 文件中声明活动时，可以同时指定这个活动可以响应的意图，使用 `intent-filter` 来完成。
+
+例如，如果你构建了一个邮件应用，其中有一个活动可以编写新邮件，你可以声明一个意图过滤器，去响应“发送”意图：
+
+```
+<manifest ...>
+  ...
+  <application ...>
+    <activity android:name="com.example.project.CompostEmailActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.SEND" />
+        <data android:type="*/*" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </activity>
+  </application>
+</manifest>
+```
+
+这样，如果其它应用创建一个包含 `ACTION_SEND` 的意图，传递给 `startActivity`，那么系统就可能启动你的活动，让用户来编辑发送邮件。
+
+更多关于意图过滤器的信息，可以参考 [Intents and Intent Filters]() 文档。
+
+### Declaring app requirements
+支持 Andorid 的设备有很多，他们有着不同的特性和能力。为了避免让你的应用安装在那些没有应用所需特性的设备上，在 Manifest 文件中清楚地定义你的应用支持的设备的特性是非常重要的。对多数声明来说，系统不会读取他们，但是这些声明对于像 Google Play 这样的外部服务是非常有用的，Google Play 可以通过这些声明，在用户搜索应用时作出过滤。
+
+例如，如果你的应用需要摄像头，使用 Android 2.1(API Level 7) 中引入的 API，你需要在 Manifest 文件中这样声明：
+
+<manifest ...>
+  <uses-feature andorid:name="android.hardware.camera.any"
+                android:required="true" />
+  <uses-sdk android:minSdkVersion="7" android:targetrSdkVersion="19"/>
+  ...
+</manifest>
+
+这样，那些没有摄像头或者 Android 版本低于 2.1 的设备就不能通过 Google Play 安装你的应用。
+
+然而，如果你想声明你的应用需要摄像头，但是不是必须的，那么，可以将 `required` 属性修改为 `false`，并且自己在应用代码中检查是否有摄像头，如果没有的话关闭一些特性。
+
+更多关于管理应用兼容性的信息，可以参见 [Device Compatibility]() 文档。
+
+### App Resources
