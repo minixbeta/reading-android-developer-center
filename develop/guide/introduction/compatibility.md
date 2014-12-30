@@ -72,5 +72,14 @@ disableDragAndDrop();
 ```
 
 ### Screen configuration
+Android 运行在手机，平板，电视等各种设备上。为了给设备屏幕分类，Android 在两个方面给出分类依据：屏幕大小，屏幕密度：
+
+* 四种大小：small, normal, large 以及 xlarge
+* 四种密度：mdpi(medium), hdpi(high), xhdpi(extra-high), xxhdpi(extra-extra-high) 以及其它
+
+默认情况下，你的应用是和所有屏幕大小和密度都兼容的，因为系统会根据你的 UI 以及图片资源进行调整。但是，为了给用户更好的体验，你还是要给每种屏幕配置都提供不同的布局和图片资源。
+
+更多关于如何为不同屏幕配置创建不同资源以及如何在必要时限制你的应用适用的屏幕大小的信息，可以阅读 [Supporting Different Screens].
 
 ## Controlling Your App's Availabilit for Business Reasons
+除了基于设备限制应用的可用性，你还可能需要根据商业上或者法律原因限制应用的可用性。
