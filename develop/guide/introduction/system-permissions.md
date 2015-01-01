@@ -14,3 +14,10 @@ Android 每个应用都以一个独立的标识（Linux 用户ID和组ID)运行�
 
 ## Application Signing
 所有的 APK (.apk 文件) 都必需使用证书签名，证书私钥在开发者手中。这个证书用于鉴定应用作者身份。证书并不需要被证书机构签名。Android 应用使用自签名的证书是完全可以的。在 Android 中，认证的原因是为了区分作者。这样系统就可以接受或者拒绝应用对 [签名级别权限]() 的访问，接受或者拒绝另一个应用 [对同一Linux标识符的请求]()。
+
+## User IDs and File Access
+安装时，Android 会给每个包分配一个不同的 Linux User ID。这个标识在包的整个生命周期内不会变。同一个包在不同设备上也会有不同的标识。
+
+由于安全措施是在进程级别起作用，所以不同的包一般不能运行在同一进程内，因为他们需要以不同的 Linux 用户运行。不过你可以在 AndroidManifest.xml 文件的 manifest 标签中，使用 sharedUserId 属性赋予他们相同的用户 ID。这样，两个包就被当作同一个应用，使用同一用户 ID，有相同的文件权限。注意，为了保证安全，只有相同签名的应用才可以被赋予相同的用户 ID。
+
+任何被应用存储的数据都会被赋予应用的用户 ID，通常其它包不能访问。当使用 getSharedPreferences(String, int), openFileOutput(String, int), 或者 openOrCreateDatabase(String, int, SQLiteDatabase.CursorFactory) 创建文件时，你可以使用 `MODE_WORLD_READABLE` 及 `MODE_WORLD_WRITEABLE` 来允许其它包读写文件。当设置这些标志时，文件拥有者仍然是你的应用，但是可以被其它应用读写。 
