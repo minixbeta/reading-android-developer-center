@@ -50,3 +50,30 @@ Android 系统提供的权限可以在 [Manifest.permission]() 中找到。任�
 
 注意：随着 Android 版本的提升，以前不要求声明的权限，现在可以需要声明了。Android 是根据 targetSdkVersion 来决定某个权限是否需要声明的，所以你需要尽可能地把 targetSdkVersion 提升到最大值。
 
+## Declaring and Enforcing Permissions
+为了执行你自己的权限，需要在 AndroidManifest.xml 中使用 <permissions> 标签先声明，例如
+
+```
+<manifest xmls:andorid="http://schemas.android.com/apk/res/android"
+  package="com.me.app.myapp">
+  <permission android:name="com.me.app.myapp.permission.DEADLY_ACTIVITY"
+    android:label="@string/permlab_deadlyActivity"
+    android:description="@string/permdesc_deadlyActivity"
+    android:permissionGroup="android.permission-group.COST_MONEY"
+    android:protectionLevel="dangerous" />
+  ...
+</manifest>
+```
+
+<protectionLevel> 标签告诉系统如何通知用户应用所需的权限，允许谁持有权限 。
+
+<permissionGroup> 标签是可选的，用户帮助系统向用户显示权限。你可以使用标准的系统组作为此项的值（在 android.Manifest.permission_group中） 或者在很少的情况下也可以定义你自己的。
+
+<label> 标签用几个短语来描述这个权限。<description> 标签用句子告诉用户这个权限是什么，如果赋予权限可能会带来什么后果。
+
+### Enforcing Permissions in AndroidManifest.xml
+活动权限（应用到 <activity> 标签中）限制了谁可以启动活动，权限检查点 Context.startActivity()，Activity.startActivityForResult()，没权限的话会抛出 SecurityException 异常。
+
+服务权限（应用到 <service> 标签中）限制了谁可以启动或者绑定服务，权限检查点 Context.startService(), Context.stopService() 以及 context.bindService()，没权限的话会抛出 SecurityException 异常。
+
+广播接收器权限（应用到 <receiver> 标签）限制了谁可以向对应接收器发送广播，权限检查点 Context.sendBroadcase() 返回时，没权限的话不会抛出异常。权限还可以应用到 Context.registerReceiver() 上，控制谁可以在程序中注册到接收器。
