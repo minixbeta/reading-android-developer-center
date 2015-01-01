@@ -21,3 +21,32 @@ Android 每个应用都以一个独立的标识（Linux 用户ID和组ID)运行�
 由于安全措施是在进程级别起作用，所以不同的包一般不能运行在同一进程内，因为他们需要以不同的 Linux 用户运行。不过你可以在 AndroidManifest.xml 文件的 manifest 标签中，使用 sharedUserId 属性赋予他们相同的用户 ID。这样，两个包就被当作同一个应用，使用同一用户 ID，有相同的文件权限。注意，为了保证安全，只有相同签名的应用才可以被赋予相同的用户 ID。
 
 任何被应用存储的数据都会被赋予应用的用户 ID，通常其它包不能访问。当使用 getSharedPreferences(String, int), openFileOutput(String, int), 或者 openOrCreateDatabase(String, int, SQLiteDatabase.CursorFactory) 创建文件时，你可以使用 `MODE_WORLD_READABLE` 及 `MODE_WORLD_WRITEABLE` 来允许其它包读写文件。当设置这些标志时，文件拥有者仍然是你的应用，但是可以被其它应用读写。 
+
+## Using Permissions
+基本的 Android 应用在默认情况下没有任何权限，这意味着它不会作出对用户体验和数据有害的行为。为了使用设备的一些被保护的特性，你必须在 AndroidManifest.xml 文件中包含一个或多个 <users-permissions> 标签来声明你的应用所需要的权限。
+
+例如，如果一个应用想要监听短信到来的消息，需要这样声明：
+
+```
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  package="com.android.app.myapp"
+  <uses-permission android:name="android.permission.RECEIVE_SMS" />
+  ...
+</manifest>
+```
+
+在应用安装的时候，应用安装器就会基于应用声明的权限请求及用户的选择来赋予权限 。应用运行的时候，不需要再为用户检查权限。也就是说，一个应用要么在安装时被赋予相应权限，在运行时就可以使用相应特性，要么权限不被允许，任何企图使用相应特性的请求都会失败，同时不会提醒用户。
+
+通常情况下，权限请求失败会抛出 securityException，但是并不保证在任何时候都出现。多数情况下，权限请求失败都会被打印到系统日志中。
+
+Android 系统提供的权限可以在 [Manifest.permission]() 中找到。任何应用都可以定义自己的权限，所以列表里并不包含所有的可能。
+
+在你的程序执行操作时，可能会在下面这些地方进行权限检查：
+* 系统调用时，阻止应用执行特定函数
+* 启动活动时，阻止应用从其它应用启动活动
+* 发送和接收广播时，控制谁可以接收广播或者谁可以向你发送广播
+* 访问及操作内容提供器时
+* 绑定或者启动服务时
+
+注意：随着 Android 版本的提升，以前不要求声明的权限，现在可以需要声明了。Android 是根据 targetSdkVersion 来决定某个权限是否需要声明的，所以你需要尽可能地把 targetSdkVersion 提升到最大值。
+
