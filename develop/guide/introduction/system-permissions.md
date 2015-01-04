@@ -77,3 +77,16 @@ Android 系统提供的权限可以在 [Manifest.permission]() 中找到。任�
 服务权限（应用到 <service> 标签中）限制了谁可以启动或者绑定服务，权限检查点 Context.startService(), Context.stopService() 以及 context.bindService()，没权限的话会抛出 SecurityException 异常。
 
 广播接收器权限（应用到 <receiver> 标签）限制了谁可以向对应接收器发送广播，权限检查点 Context.sendBroadcase() 返回时，没权限的话不会抛出异常。权限还可以应用到 Context.registerReceiver() 上，控制谁可以在程序中注册到接收器。
+
+## Enforcing Permissions when Sending Broadcasts
+除了限制谁可以谁可以向一个已注册的 [BroadcastReceiver]() 发送意图，你还可以指定谁可以接收广播。在调用 Context.sendBroadcast() 时加上权限相关的字符串就可以了。
+
+## Other Permission Enforcement
+任意粒度的权限检查可以使用 Context.checkCallingPermissions() 完成。
+
+## URI Permission
+对内容提供器来说，目前提到的权限系统是不够用的。例如某个活动对内容提供器中某个数据的权限。
+
+可以在启动活动时，设置 `Intent.FLAG_GRANT_READ_URI_PERMISSION` 或者 `Intent.FLAG_GRANT_WRITE_URI_PERMISSION`。
+
+内容提供器需要在 <grant-uri-permission> 标签中使用 android:grantUriPermissions 属性来声明自己支持这种权限方式。
