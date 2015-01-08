@@ -21,3 +21,15 @@
 使用 `INTENT_ACTION_STILL_IMAGE_CAMERA` 动作
 ### 启动照相机应用并保持视频模式
 使用 `INTENT_ACTION_VIDEO_CAMERA` 动作
+
+## 联系人应用
+### 选择联系人
+使用 `ACTION_PICK` 动作，指定 MIME 类型为 `Contacts.CONTENT_TYPE`
+### 选择特定的联系人数据
+如果你想要得到联系人手机号，邮件地址或者其它数据，可以使用 `ACTION_PICK ` 动作，并指定不同的 MIME 类型，例如手机号可以指定为 `CommonDataKinds.Phone.CONTENT_TYPE`
+### 查看联系人
+为了显示一个已知联系人的详细内容，可以使用 ACTION_VIEW 动作，并使用 content:<URI> 作为 URI 指定联系人
+### 编辑联系人
+`ACTION_EDIT` 作为动作，content:<URI> 指定联系人，使用 [ContactsContract.Intents.Insert]() 中的定义作为 Extras，指定特定的域。
+### 插入联系人
+`ACTION_INSERT` 作为动作，`Contacts.CONTENT_TYPE`作为 MIME 类型，使用 [ContactsContract.Intents.Insert]() 中的定义作为 Extras，指定特定的域。
