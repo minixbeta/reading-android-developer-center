@@ -33,3 +33,15 @@
 `ACTION_EDIT` 作为动作，content:<URI> 指定联系人，使用 [ContactsContract.Intents.Insert]() 中的定义作为 Extras，指定特定的域。
 ### 插入联系人
 `ACTION_INSERT` 作为动作，`Contacts.CONTENT_TYPE`作为 MIME 类型，使用 [ContactsContract.Intents.Insert]() 中的定义作为 Extras，指定特定的域。
+
+## 电子邮件
+### 编写电子邮件（附件可选）
+使用下面的动作：
+* ACTION_SENDTO(没附件）
+* ACTION_SEND(一个附件)
+* ACTION_SEND_MULTIPLE(多个附件）
+
+MIME 中指定 `PLAIN_TEXT_TYPE` 或者 `*/*`
+
+Extras 中指定 Email 地址，主题等等。
+
