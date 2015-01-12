@@ -62,4 +62,14 @@ onActivityResult() 接收返回结果，如果想选择多个文件，可以将 
 ### 练习
 与自行车一样，只是　MIME 类型中　biking 修改为　other
 ### 显示心率
-`ACTION_VIEW` 作为动作，将　`vnd.google.fitness.data_type/com.google.heart_rate.bpm` 作为　MIME 类型。
+`ACTION_VIEW` 作为动作，将`vnd.google.fitness.data_type/com.google.heart_rate.bpm` 作为　MIME 类型。
+### 显示走路步数
+`ACTION_VIEW` 作为动作，将`vnd.google.fitness.data_type/com.google.step_count.cumulative` 作为 MIME 类型。
+
+## 本地动作
+### 叫出租车
+使用 `ACTION_RESERVE_TAXI_RESERVATION` 作为动作。
+
+## 地图
+使用 `ACTION_VIEW` 作为动作，并在数据里设置位置信息。
+
