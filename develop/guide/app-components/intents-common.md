@@ -45,3 +45,21 @@ MIME 中指定 `PLAIN_TEXT_TYPE` 或者 `*/*`
 
 Extras 中指定 Email 地址，主题等等。
 
+##　文件存储
+### 获取特定类型的文件
+
+* `ACTION_GET_CONTNET`: 选择文件并返回其引用，如果以后还需要用，要复制到你的应用管理范围内
+* `ACTION_OPEN_DOCUMENT`：选择文件，可以就地修改，即使是由其它应用管理的
+* `ACTION_CREATE_DOCUMENT`：创建文件
+
+onActivityResult() 接收返回结果，如果想选择多个文件，可以将 `EXTRA_ALLOW_MULTIPLE` 设置成 true。　
+
+## 健康
+### 自行车
+跟踪自行车时，使用 `ACTION_TRACK` 动作， 将 `vnd.google.fitness.activity/biking` 作为 MIME 类型，启动与停止可以使用 `EXTRA_STATUS`，启动时值为 `STATUS_ACTIVE`，停止时，值为 `STATUS_COMPLETED`。
+### 跑步
+与自行车一样，只是　MIME 类型中　biking 修改为　running
+### 练习
+与自行车一样，只是　MIME 类型中　biking 修改为　other
+### 显示心率
+`ACTION_VIEW` 作为动作，将　`vnd.google.fitness.data_type/com.google.heart_rate.bpm` 作为　MIME 类型。
