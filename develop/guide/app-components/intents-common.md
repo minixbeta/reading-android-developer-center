@@ -102,3 +102,22 @@ onActivityResult() 接收返回结果，如果想选择多个文件，可以将 
 * ACTION_SEND
 * ACTION_SEND_MULTIPLE
 
+## Web  浏览器
+如果想打开 Web 页面，可以使用 `ACTION_VIEW` 作为动作，并且在意图数据中指定 web URL。
+
+## 使用 Android Debug Bridge 验证意图
+如果你想要你的应用对意图作出响应，可以使用 adb 发起意图：
+
+1. 将 Android 设备设置为开发者模式
+2. 安装你的应用
+3. 使用 adb 发起意图
+
+```
+adb shell am start -a <ACTION> -t <MIME_TYPE> -d <DATA> \
+  -e <EXTRA_NAME> <EXTRA_VALUE> -n <ACTIVITY>
+```
+4. 如果你的应用定义了意图过滤器，那么它应该可以处理这个意图
+
+## 使用 Google Now 发起意图
+Google Now 可以识别声音命令，并发起意图。如果你的应用可以处理这些意图，那么可以通过 Google Now 启动你的应用。
+
