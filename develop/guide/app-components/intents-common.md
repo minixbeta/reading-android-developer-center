@@ -73,3 +73,32 @@ onActivityResult() 接收返回结果，如果想选择多个文件，可以将 
 ## 地图
 使用 `ACTION_VIEW` 作为动作，并在数据里设置位置信息。
 
+##  音乐或视频
+使用 `ACTION_VIEW` 作为动作，并在数据里设置文件位置信息。
+
+如果需要基于搜索结果进行播放，使用 `INTENT_ACTION_MEDIA_PLAY_FROM_SEARCH` 作为动作。同时可以使用 `EXTRA_MEDIA_FOCUS` 指定搜索
+模式。
+
+## 手机
+使用 `ACTION_DIAL` 动作，在 URL 模式里指定手机号码。当播号应用打开时，会显示手机号码，但是用户必须点拨号，才拨通。如果想直接拨通，可以使用 `ACTION_CALL`。
+
+## 搜索
+使用特定应用搜索，如果在你的应用内，使用 `ACTION_SEARCH` 作为动作，如果使用 Google Now，使用 `com.google.android.gms.action.SEARCH_ACTION` 作为动作，在 Extras 中，使用 `QUERY` 作为动作。
+
+如果想使用 Web 搜索，可以用 `ACTION_WEB_SEARCH` 作为动作。 
+
+##  设置
+为了打开系统设置中的某个界面，可以使用下面这些作为动作
+
+* ACTION_SETTINGS
+* ACTION_WIRELESS_SETTINGS
+* ACTION_WIFI_SETTINGS
+* ...
+
+## 文本消息
+要想发短信，可以使用下面这些作为动作，在 Extras 中指定主题，内容，手机号等内容
+
+* ACTION_SENDTO
+* ACTION_SEND
+* ACTION_SEND_MULTIPLE
+
