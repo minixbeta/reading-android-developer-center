@@ -24,4 +24,68 @@
 ## Shutting Down an Activity
 关闭活动可以调用  finish() 或者 finishActivity()，但是最好不要显式地调用这两个函数，活动的生命周期可以由系统来管理。
 
+## Managing the Activity Lifecycle
+活动生命周期是通过对各种回调函数的实现来管理的。
+
+活动可以处于三种基本状态：
+
+* Resumed: 活动处于前台，可与用户交互
+* Paused: 另一个活动在前台，与用户交互，但是处于 Paused 状态的活动仍然是可见的，只是不是完全可见
+* Stopped: 活动完全不可见
+
+### Implementing the lifecycle callbacks
+
+```
+@Override
+public void onCreate(Bundle savedInstanceState) {
+ super.onCreate(savedInstanceState);
+ // 活动被创建
+}
+
+@Override
+protected void onStart() {
+ super.onStart();
+ // 活动即将可见
+}
+
+@Override
+protected void onResume() {
+ super.onResume();
+ // 活动处于可见态 (resumed)
+}
+
+@Override
+protected void onPause() {
+ super.onPause();
+ // 另一个活动占据了焦点，本活动处于 paused
+}
  
+@Override
+protected void onStop() {
+ super.onStop();
+ // 活动不可见，处于 stopeed
+}
+
+@Override
+protected void onDestroy() {
+ super.onDestroy();
+ // 活动即将销毁
+}
+```
+
+调用 onPause(), onStop(), onDestroy() 之后，系统就可以销毁活动了，所以如果有什么东西需要保存，记得在相应回调函数内保存。
+
+### Savring activity state
+状态切换时，可能需要保存一些活动的状态信息，以免系统杀死活动后，用户又返回这个活动时，再创建新活动时，刚才的活动状态消失了。
+
+系统会使用 onSaveInstanceState() 保存有 id 的控件的状态，并在再次创建时使用onRestoreInstanceState() 恢复，如果你还有额外的东西需要保存，也可以重新实现 onSaveInstanceState()，但是记得这函数是用来保存 UI 的状态信息的，不是用来保存持久化数据的。并且系统也不保证所有情况下都调用 onSaveInstanceState()，例如，如果是用户退出应用，系统当然就不会保存 UI 状态。
+
+### Handling configuration changes
+当配置变化时，比如屏幕方向改变时，系统可能会使用新的布局，重新创建 UI 组件，这时候，你就要保证 UI 的状态及时保存与恢复。
+
+### Coordinating activities
+如果活动A启动了活动B，那么它们的回调函数调用顺序是：
+
+1. 活动 A 的 onPause() 函数
+2. 活动 B 的 onCreate(), onStart(), onResume()
+3. 如果活动 A 不可见了，那么 onStop() 会被执行
