@@ -22,3 +22,11 @@ Fragment 放在其它活动里。这样，Fragment 就实现了复用。也使�
 
 ### 添加无 UI 的 Fragment
 Fragment 也可以没有 UI，在后台运行，这时候就不用在 onCreateView() 中加载布局了。
+
+## 管理 Fragments
+为了管理 activity 中的 fragments，你需要使用 FragmentManager，在 activity 中使用 getFragmentManager() 可以得到它，它可以用来：
+* 获取活动中存在的 fragments，使用 findFragmentById() 或者 findFragmentByTag()
+* 从返回栈中弹出 fragments，使用 popBackStack()
+* 为返回栈的变化注册监听函数，使用 addOnBackStackChangedListener()
+
+## 执行 Fragment 事务
