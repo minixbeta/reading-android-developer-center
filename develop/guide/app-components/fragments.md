@@ -30,3 +30,27 @@ Fragment 也可以没有 UI，在后台运行，这时候就不用在 onCreateVi
 * 为返回栈的变化注册监听函数，使用 addOnBackStackChangedListener()
 
 ## 执行 Fragment 事务
+执行 Fragment 事务需要用到 FragmentTransaction，它可以这样得到：
+
+```
+FragmentManager fragmentManager = getFragmentManager();
+FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+```
+
+可以使用 FragmentTransaction 执行一系列动作，包括 add(), remove(), 和 replace() ，最后使用 commit() 进行提交。
+
+在 commit 之前，可以调用 addToBackStack()，将当前 fragment 状态添加到返回栈中，这样 commit 之后，可以通过返回按钮返回之前的状态。 
+
+## 与 Activity 交流
+Fragment 可以通过 getActivity() 得到它所在的 activity。
+
+为了在 fragment 与其所在的 activity 之间共享事件，可以在 fragment 内定义一个接口，让其所在的 activity 实现这个接口。在 fragment 的 onAttach 函数中，将参数 activity 转化成这个接口，保存为 fragment 的私有变量。 然后， 当特定事件发生时， 使用这个私有变量调用接口内的函数。 这样，当 fragment 内有事件发生时，就能告诉 activity，activity 就知道怎么处理这个事，比如
+改变其它 fragment 的状态。
+ 
+### 向 Action Bar 中添加项目
+可以通过在 fragment 中实现 onCreateOptionsMenu() 来向 Action Bar 中添加项目，但是需要在 onCreate() 中调用 setHasOptionsMenu() 函数，以表明这个 fragment 会在 Action Bar 中添加可选菜单。
+
+当其中的菜单项被单击时，会调用 fragment 中的 onOptionsItemSelected() 函数，所以你需要实现这个函数。
+
+同样，你可以在 fragment 的布局中，注册一个视图，来提供 context 菜单，这可以通过 registerForContextMenu() 来实现 。当用户打开 context 菜单时，会调用 fragment 的 onCreateContextMenu()，当用户选择一个项时，要调用 fragment 的 onContextItemSelected()。
+
