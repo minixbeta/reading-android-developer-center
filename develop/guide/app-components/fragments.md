@@ -54,3 +54,26 @@ Fragment 可以通过 getActivity() 得到它所在的 activity。
 
 同样，你可以在 fragment 的布局中，注册一个视图，来提供 context 菜单，这可以通过 registerForContextMenu() 来实现 。当用户打开 context 菜单时，会调用 fragment 的 onCreateContextMenu()，当用户选择一个项时，要调用 fragment 的 onContextItemSelected()。
 
+## 处理 Fragment 生命周期
+Fragment 生命周期管理与 Activity 很像，它们都有三个状态：
+
+* Resumed
+* Paused
+* Stopped
+
+二者生命周期最大的不同是，Activity 压入返回栈是由系统决定的，而 Fragment 压入返回栈需要显式调用 addToBackStack()
+
+### 与 Activity 生命周期的配合
+Activity 的生命周期直接影响 Fragment 的生命周期。
+
+Fragment 与 Activity 生命周期相比，多了几个回调函数：
+
+* onAttach(): 当 fragment 与 activity 关联时
+* onActivityCreated(): 当 activity 的 onCreate() 调用返回时
+* onDestroyView(): 当与 fragment 的层级相关的视图销毁时
+* onDetach(): 当 fragment 与 activity 解除关联时
+
+除此之外，当 activity 调用 onPause() 等时，fragment() 也调用相应的函数。当 activity 处于 resumed 状态时，可以对 fragment 进行
+添加，替换，移除。
+
+## 示例
