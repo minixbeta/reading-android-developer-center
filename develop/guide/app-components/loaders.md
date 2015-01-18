@@ -79,3 +79,9 @@ public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
   mAdapter.swapCursor(null);
 }
 ```
+
+## 示例
+之前代码的完整示例，还有两个其它示例：
+
+* LoaderCursor
+* LoaderThrottle
