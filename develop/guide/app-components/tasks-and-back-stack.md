@@ -8,3 +8,23 @@ onResume()，但是如果销毁了，就会重新创建这个 Activity 了，如
 的状态就会消失了。所以，为了保证健壮性还是需要自己保存状态的。
 
 ## 管理 Tasks
+一般情况下，系统会为你管理好 Task，启动 Activity 时入栈，按返回按钮时出栈，后进先出。但是某些情况下，你可能会有特别的需求，例如
+启动 Activity 时开一个新的 Task，而不是压入当前 Task，或者如果 Activity 已经有实例在栈中，就使用这个实例，而不是新生成一个，或者
+想清空栈。那么，你可以在 Manifest 的 activity 标签下使用下面几个属性，在 startActivity 中使用一些标志：
+
+<activity> 属性：
+* taskAffinity
+* launchMode
+* allowTaskReparenting
+* clearTaskOnLaunch
+* alwaysRetainTaskState
+* finishOnTaskLaunch
+
+intent 标志：
+* FLAG_ACTIVITY_NEW_TASK
+* FLAG_ACTIVITY_CLEAR_TOP
+* FLAG_ACTIVITY_SINGLE_TOP
+
+注意：多数情况下你不需要自己管理 Tasks，如果真要自己定制，需要仔细测试，确保不会出现用户意料之外的现象。
+
+### 定义启动模式
