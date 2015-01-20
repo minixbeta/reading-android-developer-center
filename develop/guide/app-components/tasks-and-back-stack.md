@@ -30,3 +30,18 @@ intent 标志：
 ### 定义启动模式
 启动模式的定义影响 Activity 与 Task 的关系，定义方式有两种：使用 manifest 或者使用 Intent 标志。注意有些启动模式 **只在** manifest 中才能定义，有些 **只在** Intent 中才能定义。
 
+### 使用 manifest 文件
+在 manifest 文件的 <activity> 元素下，launchMode 属性：
+* standard: 默认模式，activity 启动时，会创建新实例，activity 可多次实例化，属于不同 Task，一个 Task 可能有多个实例
+* singleTop: 如果启动的 activity 在 back 栈的栈顶，那么会直接使用这个 activity，而不会实例化新实例。如果启动其它 activity，会实例化一个新的 activity，放在栈顶
+* singleTask: 每个 activity 只有一次实例。如果 back 栈中是 (activity 2, activity 1)，后台 Task 中有 (activity y, activity x)，如果 activity 2 启动了 activity y，那么，back 栈会变成 (activity y, activity x, activity 2, activity 1)
+* singleInstance：与 singleTask 相同，只是 一个 activity 只会是 task 的唯一成员。
+
+### 使用 Intent 标志
+可以在 startActivity() 时指定 Intent 标志，控制 activity 与 task 的关系。
+
+* FLAG_ACTIVITY_NEW_TASK: 与 singleTask 行为一致
+* FLAG_ACTIVITY_TOP: 与 singleTop 行为一致
+* FLAG_ACTIVITY_CLEAR_TOP: 如果启动的 activity 已经在 back 栈中了，那么这个 activity 上面的那些 activity，都会被销毁，这个 activity 会成为栈顶元素，与用户交互。
+
+### 处理 affinities
