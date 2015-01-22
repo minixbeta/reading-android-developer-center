@@ -43,3 +43,22 @@ Android 系统可能在内存量太少时，结束 Service。如果这个 Servic
 
 为了保持应用安全性，应该总是显式地启动 Service，而不要在 <service> 下加 filter。
 
+### 创建 Service
+组件在启动 Service时，使用startService()，并且给它传递一个 Intent，表明要启动的是哪个服务，给服务传递什么数据。Service 在
+onStartCommand() 方法中接收到这个 Intent。
+
+注意，Service 启动时，会在应用的主线程中，如果你有长时间运行的任务，会影响到用户在前台的交互，需要新建立一个线程。
+
+一般情况下，你可以继承下面这两个类来实现服务：
+
+* Service: 所有服务的基类。如果你继承了它，注意把任务放在单独的线程中。
+* IntentService：Service 类的子类，如果你不需要同时处理多个请求，可以使用这个类，它已经使用了一个工作线程来处理任务，你只要实现 onHandleIntent() 方法，处理请求就行了。
+
+
+### 继承 IntentService 类
+IntentService 类主要完全下面的工作：
+* 创建默认工作线程，执行所有传递到 onSTartCommand() 中的Intent
+* 创建工作队列，一次发送一个 Intent 到 onHandleIntent()
+* 所有请求处理守全，关闭服务
+* 提供 onBind() 的默认实现（返回null)
+* 提供 onStartCommand() 的默认实现，把 intnet 改送到工作队列，然后到 onHandleIntent()
