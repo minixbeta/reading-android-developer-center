@@ -62,3 +62,28 @@ IntentService 类主要完全下面的工作：
 * 所有请求处理守全，关闭服务
 * 提供 onBind() 的默认实现（返回null)
 * 提供 onStartCommand() 的默认实现，把 intnet 改送到工作队列，然后到 onHandleIntent()
+
+### 继承 Service 类
+如果想同时处理多个请求，可以自己继承 Service 类，实现各个回调函数，同时在多个线程中处理各个请求。
+
+注意 onStartCommand() 返回的整数，它决定了系统杀死 Service 后如何重启。
+
+* START_NOT_STICKY: 如果系统杀死了 Service，不重启它，除非有没处理的 intents 传递过来。
+* START_STICKY：如果系统杀死了 Service，重启它，但是不传递最后一个 Intent，如果有没有处理的 intents，就传递过来处理。
+* START_REDELIVER_INTENT: 如果系统杀死了 Service，重启它，并且传递最后一个 Intent，如果有没有处理的 intents，传递过来处理。
+
+### 启动 Service
+调用 startService，传递 Intent，例如
+
+```
+Intent intent = new Intent(this, HelloService.class);
+startService(intent);
+```
+
+调用 startService() 后，调用  onStartCommands() 。如果这个Service没有在运行，会先调用 onCreate()，再调用 onStartCommands()
+
+### 停止 Service
+Service 要自己管理生命周期，除非内存实在不够用了，否则系统不会销毁 Service。所以 Service 要自己调用 stopSelf() 或者由其它组件
+调用 stopService()。
+
+注意为了避免浪费系统资源，当 Service 完全工作时，销毁它是非常重要的。
