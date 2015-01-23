@@ -95,3 +95,14 @@ Service 要自己管理生命周期，除非内存实在不够用了，否则系
 都解除绑定时，这个服务会被销毁。
 
 ## 向用户发送 Notifications
+服务可以显示一个 Toast，发送 Notification。
+
+Toast 向用户显示一个消息，过一会会自己消失。Notification 在 Status Bar 显示一个小图标，和一个消息，通常表示任务完成，你可以通过点击展开这个通知，启动一个 Activity。
+
+## 在前台运行服务
+前台服务是用户在乎的服务，当内存量低时，系统不会轻易杀死它。前台服务必须为 status bar 提供一个 notification。这个 notification 在服务没停止或者没被从前台移除时，不会消失。
+
+例如，音乐播放器就会运行在前台，status bar 中的 notification 会显示播放的是哪首歌，你还可以与它交互。
+
+要启动前台服务，可以使用 startForeground()，要停止前台服务，可以调用 stopForegound()，不过这个函数只是把服务移出前台，不会停止它。
+
