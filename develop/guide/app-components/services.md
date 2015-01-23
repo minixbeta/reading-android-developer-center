@@ -106,3 +106,13 @@ Toast 向用户显示一个消息，过一会会自己消失。Notification 在 
 
 要启动前台服务，可以使用 startForeground()，要停止前台服务，可以调用 stopForegound()，不过这个函数只是把服务移出前台，不会停止它。
 
+## 管理 Service 的生命周期
+有两种方式启动 Service
+
+* 一个 started service: 通过 startService() 启动
+* 一个 bound service: 通过 bindService() 启动
+
+两种服务都是从 onCreate() 开始，onDestroy() 结束，只不过 started service 会调用 onStartCommand() 启动，bound service 会调用 
+onBind()，返回客户端一个 IBinder，客户端解除绑定时调用  onUnbind() 
+
+两种服务不冲突，一个 started service 也可以是一个 bound service
