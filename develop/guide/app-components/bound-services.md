@@ -21,3 +21,12 @@ bound service 是 Service 类的一个实现，可以让其它应用绑定到它
 注意：多数应用不需要使用 AIDL，因为多线程会导致复杂的实现。
 
 ### 扩展 Binder 类
+使用方式是：
+1. 在 service 中，创建 Binder 的实例，并且 Binder 满足下面条件：
+  - 包含客户端可以调用的 public 方法
+  - 返回当前 service 的实例，实例包含客户端可以调用的方法
+  - 返回另一个类的实例，包含客户端可以调用的方法，service包含这个实例
+2. 在 onBinder() 回调函数中返回这个 Binder 实例
+3. 在客户端，通过 onServiceConnected() 回调方法接收 Binder 实例
+
+
