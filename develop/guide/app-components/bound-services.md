@@ -30,3 +30,16 @@ bound service 是 Service 类的一个实现，可以让其它应用绑定到它
 3. 在客户端，通过 onServiceConnected() 回调方法接收 Binder 实例
 
 
+### 使用 Messenger
+
+下面是如何使用 Messenger 的总结：
+
+对 service 来说，
+
+* service 实现 Handler，客户端的每次调用都会调用 Handler 中的回调函数
+* Handler 用于创建 Messenger
+* Messager 创建 IBinder，service 会在 onBind() 中把这个 IBinder 返回
+* 客户端使用 IBinder 实例化 Messenger，向 service 发送
+* service 在 Handler 的 handleMessage() 中接收 Message
+
+对客户端来说，使用 IBinder 创建 Messenger，然后可以使用这个 Messenger 的 send 函数发送 Message
