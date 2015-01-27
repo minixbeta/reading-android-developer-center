@@ -43,3 +43,24 @@ bound service 是 Service 类的一个实现，可以让其它应用绑定到它
 * service 在 Handler 的 handleMessage() 中接收 Message
 
 对客户端来说，使用 IBinder 创建 Messenger，然后可以使用这个 Messenger 的 send 函数发送 Message
+
+## 绑定到 Service
+
+要绑定到一个 service ，你必须：
+
+1. 实现 ServiceConnection: 覆盖 onServiceConnected()，系统会通过调用这个函数传递 IBinder; 覆盖 onServiceDisconnected()，当到 service 的连接意外中断时调用
+2. 调用 bindService()，传递 ServiceConnection 的实现
+3. 当系统调用 onServiceConnected() 回调函数时，你可以开始调用 service
+4. 要断开到 service 的连接，使用 unbindService()
+
+### 注意
+* 你必须捕获 DeadObjectException 异常，当连接中断时抛出
+* 对象在进程间通过引用计数
+* 需要注意 绑定-解绑定 成对出现:
+  - 如果你只想在客户端可见时与 service 交互，可以在 onStart() 中绑定，在 onStop() 中解绑定
+  - 如果你想让 activity 在后台仍然可以接收 service 的响应，可以在 onCreate() 中绑定，onDestroy() 中解绑定
+
+另外，不要在 onResume() 和 onPause() 中绑定和解绑定，它们可能被频繁调用，并且由于调用次序的原因可能会出错。
+
+## 管理 Bound Service 生命周期
+如果是 bound service ，一般不用显式地管理生命周期，Android 会在所有客户端都解绑定时销毁。
