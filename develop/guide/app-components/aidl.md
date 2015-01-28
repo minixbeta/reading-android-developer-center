@@ -9,3 +9,25 @@ Service 时，并且想在 Service 中自己处理多线程问题时，才需要
 * oneway 关键词可以改变远程线程调用的行为。当使用它时，远程调用不会阻塞，它仅仅发送事务数据，然后马上返回。
 
 ## 定义 AIDI 接口
+
+1. 创建 .aidi 文件
+这个文件定义了程序接口
+
+2. 实现接口
+Android SDK 工程会基于 .aidi 文件，使用 Java 语言生成接口，这个接口有一个名为 Stub 的抽象类，继承了 Binder。你必须继承 Stub 类
+然后实现方法
+
+3. 把接口导出给客户端
+实现 Service，覆盖 onBind()，返回你实现的 Stub 类
+
+### 1. 创建 .aidi 文件
+.aidi 文件使用 Java 语言创建，定义一个接口，并且只需要接口声明及方法标识。
+
+默认情况下，AIDL 支持下面的数据类型：
+* Java 基本数据类型
+* Sting
+* CharSequence
+* List
+* Map
+
+其它的类型，你需要使用 import 导入
