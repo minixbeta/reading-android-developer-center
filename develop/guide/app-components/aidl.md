@@ -31,3 +31,11 @@ Android SDK 工程会基于 .aidi 文件，使用 Java 语言生成接口，这�
 * Map
 
 其它的类型，你需要使用 import 导入
+
+### 2. 实现接口
+当你构建应用时，Android SDK 工具会根据 .aidi 文件生成 .java 文件，包含 .aidi 中描述的接口，这个接口包含一个名为 Stub 的子类，
+例如 YourInterface.Stub。
+
+为了实现从 .aidl 生成的接口，可以继承生成的 Binder 接口（YourInterface.Stub)，实现其中的方法。
+
+需要注意的是：
