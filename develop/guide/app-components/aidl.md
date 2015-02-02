@@ -50,3 +50,23 @@ Android SDK 工程会基于 .aidi 文件，使用 Java 语言生成接口，这�
 客户端在调用  bindService() 后，可以在回调函数 onServiceConnected() 中接收到这个 IBinder。
 
 客户端必须有访问接口类的能力，所以客户端应用也需要在 src/ 下有对应的 .aidi 文件。
+
+## 通过 IPC 传递对象
+要想通过 IPC 传递对象，对象所属类需要实现 Parcelable 接口，你必须保证：
+
+* 类实现了 Parcelable 接口
+* 实现 writeToParcel，将对象当前状态写入 Parcel
+* 添加名为 CREATOR 的静态域，实现了 Parcelable.Creator 接口
+* 最后，创建 .aidi 文件，声明你的类
+
+### 调用 IPC 方法
+为了调用 AIDL 中定义的远程接口，需要执行下面的步骤：
+
+1. 在项目的 src/ 下包含 .aidl 文件
+2. 声明 IBinder 接口的实例（基于 AIDL 生成）
+3. 实现 ServiceConnection
+4. 调用 Context.bindService()，传递你的 ServiceConnection 实现
+5. 在 onServiceConnected()中，你会接收到 IBinder 实例
+6. 调用接口中定义的方法，捕获 DeadObjectException
+7. 通过 Context.unbindService() 断开链接
+
