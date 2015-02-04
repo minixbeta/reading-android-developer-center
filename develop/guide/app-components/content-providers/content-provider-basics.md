@@ -36,3 +36,16 @@ content URI 是标识 provider 中数据的 URI，它由 authority 和 path 两�
 ```
 content://user_dictionary/words
 ```
+
+## 向 Provider 请求数据
+向 Provider 请求数据要做两件事：
+
+1. 请求对 Provider 的读取权限
+2. 定义向 provider 发送数据请求的代码
+
+### 请求读取权限
+对读取权限的请求不能在运行时完成，而要在 manifest 中使用 <uses-permission> 元素来请求，在安装你的应用时，会提示用户授权。
+
+例如，用户字典 Provider 定义的权限是 `anddroid.permission.READ_USER_DICTIONARY`。
+
+### 构造请求
