@@ -28,3 +28,11 @@ mCursor = getcontentResolver().query(
 query 的参数中，uri 表示哪个表格，projection 表示哪个列，selection 表示与列相关的查询条件，selectionArgs(?) ,sortOrder 表示
 对返回的数据进行排序的方式。
 
+### Content URIs
+content URI 是标识 provider 中数据的 URI，它由 authority 和 path 两部分组成，authority 表示哪个 provider，path 表示哪个表格。
+
+例如，用户字典中的单词：
+
+```
+content://user_dictionary/words
+```
