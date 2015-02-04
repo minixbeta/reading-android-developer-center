@@ -25,8 +25,7 @@ mCursor = getcontentResolver().query(
   mSortOrder)
 ```
 
-query 的参数中，uri 表示哪个表格，projection 表示哪个列，selection 表示与列相关的查询条件，selectionArgs(?) ,sortOrder 表示
-对返回的数据进行排序的方式。
+query 的参数中，uri 表示哪个表格，projection 表示哪个列，selection 表示与列相关的查询条件，selectionArgs(查询条件中的参数值) ,sortOrder 表示对返回的数据进行排序的方式。
 
 ### Content URIs
 content URI 是标识 provider 中数据的 URI，它由 authority 和 path 两部分组成，authority 表示哪个 provider，path 表示哪个表格。
@@ -49,3 +48,13 @@ content://user_dictionary/words
 例如，用户字典 Provider 定义的权限是 `anddroid.permission.READ_USER_DICTIONARY`。
 
 ### 构造请求
+请求是通过函数 query(Uri, projection, selection, selectionArgs, sortOrder) 完成的，之前已经说明过参数的意义。
+
+### 避免恶意输入带来的危害
+如果直接通过用户输入构造请求，可能造成 SQL 注入。所以，需要使用 selection, selectionArgs 共同完成请求条件。在 selection 中把
+请求条件表示出来，但是参数值不是通过用户输入拼接到 selection 中，而是放入 selectionArgs 中。
+
+### 显示请求结果
+请求结果会放在 Cursor 中，Cursor 其实是多个行组成的列表，所以可以通过  SimpleCursorAdapter 与 ListView 联合使用。
+
+当然，如果你不想用于 ListView，可以通过 cursor.moveToNext() 遍历，通过 cursor.getString(index) 获取数据。
