@@ -58,3 +58,19 @@ content://user_dictionary/words
 请求结果会放在 Cursor 中，Cursor 其实是多个行组成的列表，所以可以通过  SimpleCursorAdapter 与 ListView 联合使用。
 
 当然，如果你不想用于 ListView，可以通过 cursor.moveToNext() 遍历，通过 cursor.getString(index) 获取数据。
+
+## Content Provider 权限
+provider 应用可以指定其它应用访问它时需要的权限。其它应用需要声明这个权限，在安装时，用户就知道这些程序需要这些权限。
+
+如果 provider 应用没有指定权限，他们其它应用不能访问它，但是 provider 应用内部无须权限即可读写。
+
+用户字典 Provider 需要 `android.permission.READ_USER_DICTIONARY` 权限进行读取操作，需要 `android.permission.WRITE_USER_DICTIONARY` 权限进行插入，更新，或者删除数据。
+
+为了获取访问 provider 的权限，要在 manifest 文件里声明，在安装应用时，会提示用户，如果用户授权了，就安装，不授权，就取消安装。
+
+例如：
+
+```
+<uses-permission android:name="android.permission.READ_USER_DICTIONARY">
+```
+```
