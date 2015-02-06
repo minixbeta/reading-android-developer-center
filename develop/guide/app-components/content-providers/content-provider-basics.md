@@ -73,4 +73,36 @@ provider 应用可以指定其它应用访问它时需要的权限。其它应�
 ```
 <uses-permission android:name="android.permission.READ_USER_DICTIONARY">
 ```
+
+## 插入，更新，删除数据
+你可以使用与查询数据相同的方式，来调整数据。调用 ContentResolver 的方法，传入参数，之后这些参数会被传入 ContentProvider 的对应
+方法中。provider 和 provider 客户端会自动处理安全问题。
+
+### 插入数据
+调用 ContentResolver.insert() 插入一行，返回这行的 URI。
+
 ```
+ContentValues mNewValues = new ContentValues();
+
+mNewValues.put(UserDictionary.wrods.APP_ID, "example.user");
+mNewValues.put(UserDictionary.words.LOCALE, "en_US");
+
+mNewUri = getContentResolver().insert(
+  UserDictioinary.Word.CONTENT_URI,
+  mnewVaues
+);
+```
+
+返回的 URI 格式为：
+
+```
+content://user_dictionary/words/<id_value>
+```
+
+`<id_value>` 是插入行的 _ID ，它由系统自动维护，作为表和主键。
+
+### 更新数据
+更新数据时，使用 ContentResolver.update()，更新的值放在 ContentValues 对象里，更新的行像查询值那样，使用 selection, selectionArgs 指定。
+
+### 删除数据
+
