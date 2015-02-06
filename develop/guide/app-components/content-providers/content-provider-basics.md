@@ -107,4 +107,14 @@ content://user_dictionary/words/<id_value>
 ### 删除数据
 删除数据与查询数据类似，使用 ContentResolver().delete(uri, selection, selectionArgs)。需要注意防止恶意数据。
 
-## Provider Data Types
+## Provider 数据类型
+Content Provider 可以提供许多数据类型，除了 用户字典 Provider 中使用的文本外，还有:
+
+* 整数(integer)
+* 长整数(long integer)
+* 浮点数(floating point)
+* 长浮点数(double)
+
+Provider 中每一列的数据类型一般在文档中可以查到。
+
+Provider 还为它定义 的每个 content URI 维护了 MIME 数据类型信息。
