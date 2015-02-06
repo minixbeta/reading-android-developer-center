@@ -105,4 +105,6 @@ content://user_dictionary/words/<id_value>
 更新数据时，使用 ContentResolver.update()，更新的值放在 ContentValues 对象里，更新的行像查询值那样，使用 selection, selectionArgs 指定。
 
 ### 删除数据
+删除数据与查询数据类似，使用 ContentResolver().delete(uri, selection, selectionArgs)。需要注意防止恶意数据。
 
+## Provider Data Types
