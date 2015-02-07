@@ -151,3 +151,41 @@ provider 在 manifest 文件中为 content URI 定义 URI 权限，使用 <provi
 
 ### 使用其它应用
 如果你的应用没有权限去修改数据，你可以激活一个有权限的，让用户在那里操作
+
+## Contract 类
+Contract 类定义了一些常量，以便你操作 content URI, 列名，intent 动作，以及其它 content provider 特性。Contract 类不会自动
+包含到 provider 里，provider 的开发者需要定义他们，让其它开发者使用。
+
+Android 平台本身对应的 contract 类在  android.provider 包内。
+
+## MIME 类型参考
+Content providers 返回标准的 MIME 类型，或者定制的 MIME 类型字符串，或者都返回。
+
+MIME 类型格式为：
+
+```
+类型|子类型
+```
+
+例如，著名的 MIME 类型 text/html ，如果 provider 为 URI 返回这种类型，说明请求这个 URI 会返回文本，包含 html 格式数据。
+
+定制的 MIME 类型字符串，包含更复杂的类型和子类型。
+
+如果是多行，类型值总是：
+
+```
+vnd.android.cursor.dir
+```
+
+如果是单行，是 
+
+```
+vnd.android.cursor.item
+```
+
+子类型是与 provider 相关的，例如 android 为联系人数据 中电话号码创建了一行，MIME 是
+
+```
+vnd.android.cursor.item/phone_v2
+```
+
