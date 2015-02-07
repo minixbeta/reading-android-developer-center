@@ -118,3 +118,36 @@ Content Provider 可以提供许多数据类型，除了 用户字典 Provider �
 Provider 中每一列的数据类型一般在文档中可以查到。
 
 Provider 还为它定义 的每个 content URI 维护了 MIME 数据类型信息。
+
+## 访问 Provider 的其它方式
+另外有三种访问 Provider 的方式非常重要：
+
+* Batch access：使用 ContentProviderOperation 类提供的方法，创建一批访问调用，再使用 ContentResolver.applyBatch() 使用这些调用
+* 异步查询：在独立的线程中进行查询，一种方式是使用 CursorLoader 对象
+* Data access via intents: 虽然不能直接向 provider 发送 intent，但是可以向 provider 所在应用发送 intent
+
+### Batch access
+适用于插入大量数据，或者在同一线程调用中，在多个表格中插入行，或者将一系列跨进程动作作为一个事务。
+
+使用方法是，创建 ContentProviderOperation 数组，用于 ContentResolver.applyBatch()，并传入 content provider 的 authority。
+
+### 通过意图进行数据访问
+意图可以对 content provider 进行间接访问。即使你的应用没有权限访问 provider 中的数据，你也通过向有权限访问
+的应用发送意图，得到有 URI 权限的 result intent。有权限的应用可以在 result intent 中设置临时权限：
+
+* 读取权限：FLAG_GRANT_READ_URI_PERMISSION
+* 写权限：FLAG_GRANT_WRITE_URI_PERMISSION
+
+provider 在 manifest 文件中为 content URI 定义 URI 权限，使用 <provider> 元素的 android:grantUriPermission 属性，或者 
+<grant-uri-permission> 子元素。
+
+例如，你想从联系人中获取数据，但是你又没有 READ_CONTACTS 权限，你可以：
+
+1. 你的应用发送 intent，使用 ACTION_PICK 动作，CONTENT_ITEM_TYPE 作为  MIME 类型，使用 startActivityForResult()
+2. 这个 intent 会与选择联系人信息的 activity 的 intent filter 匹配，这个 activity 进入前台
+3. 在选择联系人信息 activity 里，用户选择一个联系人。此时，选择 activity 会调用 setResult(resultcode, intent) 设置 intent 并返回给你的应用
+4. 你的应用中的 activity 回到前台，通过  onActivityResult() 得到返回的结果
+5. 得到 result intent 中的 content URI，你就可以读取其中的联系人信息了。
+
+### 使用其它应用
+如果你的应用没有权限去修改数据，你可以激活一个有权限的，让用户在那里操作
