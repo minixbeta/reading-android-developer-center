@@ -7,3 +7,15 @@ Content Provider 的子类，这是你的 provider 和其它应用的接口。
 ## 开始构建之前
 
 在开始构建 Provider 前，你需要做的是：
+
+1. 决定是否需要一个 content provider
+2. 如果你还没读过 Content Provider Basics，需要读一下
+
+下一步，跟着下面的步骤创建 provider
+
+1. 定义数据存储方式
+2. 定义 ContentProvider 子类的实现
+3. 定义 provider 的 authority 字符串，content URI，列名。
+4. 添加其它信息，例如示例数据或者 AbstractThreadedSyncAdapter 的实现 
+
+## 设计数据存储
