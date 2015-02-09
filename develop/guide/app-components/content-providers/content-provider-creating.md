@@ -19,3 +19,15 @@ Content Provider 的子类，这是你的 provider 和其它应用的接口。
 4. 添加其它信息，例如示例数据或者 AbstractThreadedSyncAdapter 的实现 
 
 ## 设计数据存储
+Android 中的数据存储技术有：
+
+* SQLite 数据库 API, Android 中自带面向表的的 providers 都使用他们实现。SQLiteOpenHelper 可以创建数据库，SQLiteDatabase 可以访问数据库。记住虽然 provider 外在表现为表，关系型数据库，但是内部实现没必要用 SQLite API 实现
+* 存储文本数据，可以使用 Android 提供的面向文件的 API
+* 处理基于网络的数据，可以使用 java.net 或者 android.net
+
+### 数据设计要点
+* 基于表的数据需要有主键，最好使用 BaseColumns._ID
+* 如果你想提供 bitmap 图片或者其它基于文件的非常大的数据，把他们存储在文件中，而不要直接存储在表中
+* 使用 Binary Large OBject(BLOB) 数据类型存储大小或者结构可变的数据
+
+## 设计 Content URIs
