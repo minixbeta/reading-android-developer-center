@@ -62,3 +62,35 @@ switch(sUriMatcher.match(uri)) {
     // 处理对应 table3 下某一行
 }
 ```
+
+## 实现 ContentProvider 类
+ContentProvider 实例通过处理来自其它应用的请求，来管理对结构化数据的访问。所有形式的请求最终都会调用 ContentResolver，进而调用 ContentProvider 对应的方法。
+
+### 需要实现的方法
+
+query()：从 provider 中获取数据。
+insert(): 向 provider 中插入数据。
+update(): 更新 provider 中的数据。
+delete(): 删除 provider 中的数据。
+getType(): 返回 content URI 对应的 MIME 类型。
+onCreate(): 初始化 provider。
+
+这些方法与 ContentResolver 中的方法名字是一样的。
+
+需要注意的是：
+* 除了 onCreate() 其它方法都要保证线程安全。
+* 避免在 onCreate() 中做过多的工作，把初始化工作推迟到真正需要的时候。
+* 虽然你必须实现这些方法，但是你什么都不做也可以，但是要返回要求的类型的数据。
+
+### 实现 query() 方法
+ContentProvider.query() 方法要返回 Cursor 对象，如果失败了，抛出 Exception。如果你使用 SQLite 数据库，可以返回 SQLiteDatabase 类 query() 方法的返回值。
+
+如果不用 SQLite 数据库，要使用 Cursor 的子类，例如 MatrixCursor 类。
+
+注意 Android 要跨进程传递Exception，在处理请求错误时，下面两个类可能会有用：
+
+* IllegalArgumentException
+* NullPointerException
+
+### 实现 insert() 方法
+insert() 方法使用 ContentValues 参数，向表中添加一行。返回对应新添加行的 content URI
