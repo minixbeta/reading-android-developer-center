@@ -94,3 +94,17 @@ ContentProvider.query() 方法要返回 Cursor 对象，如果失败了，抛出
 
 ### 实现 insert() 方法
 insert() 方法使用 ContentValues 参数，向表中添加一行。返回对应新添加行的 content URI
+
+### 实现 delete() 方法
+delete() 方法没必要真的在物理上把一行从数据存储中删除。如果你对 provider 使用了 sync adapter，你应该考虑使用 `delete` 标志
+标记被删除的行。
+
+### 实现 update() 方法
+update() 方法使用 ContentValues 作为参数。
+
+### 实现 onCreate() 方法
+Android 系统会在启动 provider 的时候调用 onCreate()，这个方法里应该只做一些快速初始化的任务，把数据库创建，数据载入推迟到真正
+接收到数据请求时。
+
+例如，如果你使用 SQLite 数据库，你可以在 ContentProvider.onCreate() 中创建 SQLiteOpenHelper 对象，第一次打开数据库时，创建 SQL 表，你第一次调用 getWritableDatabase() 时，自动调用 SQLiteOpenHelper.onCreate() 方法。
+
