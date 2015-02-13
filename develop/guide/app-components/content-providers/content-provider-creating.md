@@ -153,3 +153,8 @@ getStreamTypes() 返回字符串数组，表示 provider 可以返回的文件�
 ```
 { "image/jpeg" }
 ```
+
+## 实现 Contract 类
+contract 类是一个 public final 类，包含 URIs, 列名，MIME 类型，其它与 provider 相关的元数据的常量定义。这个类其实是 provider 类和其它使用 provider 的应用之间的协议，有了这个类，即使 URIs，列名等等的真实值改变了，也不影响对 provider 的使用。
+
+## 实现 Content Provider 权限
