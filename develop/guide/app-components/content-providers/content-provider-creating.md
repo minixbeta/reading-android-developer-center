@@ -108,3 +108,48 @@ Android 系统会在启动 provider 的时候调用 onCreate()，这个方法里
 
 例如，如果你使用 SQLite 数据库，你可以在 ContentProvider.onCreate() 中创建 SQLiteOpenHelper 对象，第一次打开数据库时，创建 SQL 表，你第一次调用 getWritableDatabase() 时，自动调用 SQLiteOpenHelper.onCreate() 方法。
 
+## 实现 ContentProvider MIME 类型
+ContentProvider 类有两个方法，返回 MIME 类型。
+
+getType(): 对任何 provider 来说，都必须要实现
+getStreamTypes(): 如果 provider 提供文件，要实现这个方法
+
+tables 的 MIME 类型
+getType() 返回的是 MIME 类型的字符串，描述 content URI 参数返回的数据类型。
+
+对通用的数据类型，例如 文本，HTML, JPEG, getType() 返回标准 MIME 类型，可以在 IANA MIME Media Types 网站上看到。
+
+对指向表格中数据 的一行，或者多行，getType() 返回 Android vendor-specific MIME 格式：
+
+* 类型部分：vnd
+* 字类型部分：
+  - 如果是单行：android.cursor.item/
+  - 如果是多行：android.cursor.dir
+* Provider 相关的部分：vnd.<name>.<type>
+
+如果 provider 的 authority 是 com.example.app.provider，它导出的表名为 table1, 那么 table1 中多行的 MIME 类型为：
+
+```
+vnd.android.cursor.dir/vnd.com.example.provider.table1
+```
+
+如果是单行：
+
+```
+vnd.android.cursor.item/vnd.com.example.provider.table1
+```
+
+### 文件的 MIME 类型
+getStreamTypes() 返回字符串数组，表示 provider 可以返回的文件类型。
+
+如果 provider 提供了照片类型的文件，格式为 .jpg, .png, .gif，那么如果 向 ContentResolver.getStreamTypes() 传入 "image/*" 作为 过滤，返回的 MIME 类型为：
+
+```
+{ "image/jpeg", "image/png", "image/gif" }
+```
+
+如果过滤字符串为 `*\/jpeg`，返回类型为：
+
+```
+{ "image/jpeg" }
+```
