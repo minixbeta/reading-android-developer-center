@@ -158,3 +158,46 @@ getStreamTypes() 返回字符串数组，表示 provider 可以返回的文件�
 contract 类是一个 public final 类，包含 URIs, 列名，MIME 类型，其它与 provider 相关的元数据的常量定义。这个类其实是 provider 类和其它使用 provider 的应用之间的协议，有了这个类，即使 URIs，列名等等的真实值改变了，也不影响对 provider 的使用。
 
 ## 实现 Content Provider 权限
+[Data Storage]() 主题描述 了不同类型的存储的安全性和权限，简而言之，最重要的几个点是：
+* 默认情况下，数据文件存储在设备内部存储中，对你的应用和provider来说，是私有的
+* SQLiteDatabase 数据库对你的应用和provider来说，是私有的
+* 默认情况下，存储在外部存储中的数据文件是 public 的，谁都能读
+* 用于在设备内部存储中，打开或者创建文件，数据库的方法，可能会给其它应用读和写权限。
+
+## 实现权限
+所有应用都可以对你的 provider 进行读写，因为默认情况下，你的 provider 没有权限集。你需要在 manifest 中，设置 <provider> 元素的属性或者子元素。
+
+下面描述了 provider 权限的范围，粒度逐渐变小：
+
+* provider 级别的单一读-写权限
+* provider 级别的读权限或者写权限
+* 路径权限 ：provider 中的 content URI 的读，写，或者读-写权限
+* 临时权限：即使应用没有访问 provider 的权限，也可以临时给它一个权限。它减少了 manifest 中需要定义的权限。
+
+## <provider> 元素
+和 Activity 和 Service 一样，Provider 也需要在 manifest 中定义，使用的元素为 <provider>。Android 系统从这个元素中获取下面的
+信息：
+
+Authority(android:autorities): 标识整个 provider 的符号 名
+Provider 类名(android:name): 实现 ContentProvider 的类
+权限：
+  * android:grantUriPermissions: 临时权限
+  * android:permission: 单一的读-写权限
+  * android:readPermission: 读权限 
+  * android:writePermission: 写权限
+  
+启动和控制属性：
+  * android:enabled: 允许系统启动 provider
+  * android:exported: 允许其它应用使用 provider
+  * android:initOrder: provider 启动次序
+  * android:multiProcess: 允许系统在与调用的客户端同一进程内启动 provider
+  * android:process: provider 所在进程名
+  * android:syncable: provider 的数据会和服务端数据同步
+
+信息属性：
+  * android:icon: provider 对应图标，在 设置->应用->所有 中
+  * android:label: 描述 provider 或者其中数据的信息，在 设置->应用->所有 中
+
+## Intent 与数据访问
+应用可以使用 Intent 间接访问 provider。Intent 会启动一个 Activity，这个 Activity 一般与 provider 在同一应用内，这样
+可以提供一种对 provider 进行访问，修改的统一方式。
